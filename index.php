@@ -22,18 +22,48 @@
                 <th>Acción</th>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <a href="/" class="btn btn-primary btn-sm">Editar</a>
-                        <a href="/" class="btn btn-danger btn-sm">Borrar</a>
-                    </td>
-                </tr>
+                <?php
+                   $servername = "";
+                   $username = "u373289608_dantech";
+                   $password = "p/8BilzU";
+                   $database = "u373289608_crudprueba"; 
+
+                   // establecer conexion con la base de datos
+                   $connection = new mysqli($servername, $username, $password, $database);
+
+                   // revisar la conexion
+                   if ($connection->connect_error) {
+                    die("Conection failed: " . $connection->connect_error);
+                   }
+
+                   // leer todas las filas de la table de la base de datos
+                   $sql = "SELECT * FROM clients";
+                   $result = $ connection_>query($sql);
+
+                   if ($result) {
+                    die("Invalid query: " . $connection->error);
+                   }
+
+                   //leer los datos de cada fila
+                   while($row = $result_>fetch_assoc()) {
+                    echo "
+                    <tr>
+                        <td>$row[id]</td>
+                        <td>$row[name]</td>
+                        <td>$row[email]</td>
+                        <td>$row[phone]</td>
+                        <td>$row[address]</td>
+                        <td>$row[created_at]</td>
+                        <td>
+                            <a href='/Prueba_crud/edit.php?id=$row[id]' class='btn btn-primary btn-sm'>Editar</a>
+                            <a href='/Prueba_crud/delete.php?id=$row[id]' class='btn btn-danger btn-sm'>Borrar</a>
+                        </td>
+                    </tr>
+                    ";
+                   }
+
+                ?>
+                
             </tbody>
         </table>
     </div>
